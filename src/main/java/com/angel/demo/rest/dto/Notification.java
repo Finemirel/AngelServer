@@ -1,28 +1,22 @@
 package com.angel.demo.rest.dto;
 
-import java.util.Date;
+public class Notification {
+	
+	private static Long idGenerator=1L;
 
-public class News {
-
-	private Long id;
+	private Long id = idGenerator;
 	private String name;
 	private String text;
-	private Date date;
 	
-	public News(Long id, String name, String text, Date date) {
+	public Notification(String name, String text) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.text = text;
-		this.date = date;
+		idGenerator++;
 	}
 	
 	public Long getId() {
 		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
 	}
 	
 	public String getName() {
@@ -41,13 +35,6 @@ public class News {
 		this.text = text;
 	}
 	
-	public Date getDate() {
-		return date;
-	}
-	
-	public void setDate(Date date) {
-		this.date = date;
-	}
 	
 	
 	
