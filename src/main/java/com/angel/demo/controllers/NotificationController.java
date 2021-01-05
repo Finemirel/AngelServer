@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,10 @@ public class NotificationController {
 
 	NotificationRepository nrepo = new NotificationRepository();
 	
-	@GetMapping("/all")
+	@RequestMapping(
+			value = "/all",
+			produces = "application/json",
+			method = {RequestMethod.GET, RequestMethod.PUT})
 	public List<Notification> notificationAll() {
 		return nrepo.notificationAll();
 	}
@@ -41,19 +45,21 @@ public class NotificationController {
 		return nrepo.addNotification(name, text);
 	}
 	
-	@PutMapping("/name/{id}")
+	@PutMapping("/nameUpdate")
 	public Notification updateNotificationName(@RequestParam(value="oldName") 
 					String oldName, @RequestParam(value="newName") String newName) {
-		return nrepo.updateNotificationName(oldName, newName);
+		nrepo.updateNotificationName(oldName, newName);
+		return nrepo.notificationByName(newName);
 	}
 	
-	@PutMapping("/text/{id}")
+	@PutMapping("/textUpdate")
 	public Notification updateNotificationText(@RequestParam(value="oldText") 
 					String oldText, @RequestParam(value="newText") String newText) {
-		return nrepo.updateNotificationText(oldText, newText);
+		nrepo.updateNotificationText(oldText, newText);
+		return nrepo.notificationByText(newText);
 	}
 	
-	@DeleteMapping("{id}")
+	@DeleteMapping("/delete")
 	public void deleteNotification(@RequestParam(value="id") Long id) {
 		nrepo.deleteNotification(id);
 	}

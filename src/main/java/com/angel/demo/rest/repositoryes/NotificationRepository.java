@@ -58,6 +58,17 @@ public class NotificationRepository {
 		return null;
 	}
 	
+	public Notification notificationByText(String text) {
+		Iterator<Notification> itr = this.iteratorNotifications();
+		while(itr.hasNext()) {
+			Notification note = itr.next();
+			if(note.getText().equals(text)) {
+				return note;
+			}
+		}
+		return null;
+	}
+	
 	public Notification updateNotificationName(String oldName, String newName) {
 		Iterator<Notification> itr = this.iteratorNotifications();
 		Notification result = null;
